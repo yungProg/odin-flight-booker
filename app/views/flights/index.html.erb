@@ -1,4 +1,5 @@
-<%= form_with url: "/flights", method: :get, class: "search-flight" do |form| %>
+<h2>Search for flights</h2>
+<%= form_with url: flights_path, method: :get, class: "search-flight" do |form| %>
 <div>
     <div>
         <%= form.label :departure_airport %><br>
@@ -13,10 +14,23 @@
         <%= form.select :number_of_passengers, @number_of_passengers%>
     </div>
     <div>
-        <%= form.label :departure_date %><br>
-        <%= form.date_select :start_datetime%>
+        <%= form.label :departure_date_and_time %><br>
+        <%= form.datetime_local_field :start_datetime, value:Time.now%>
     </div>
 </div>
 
     <%= form.submit "Search" %>
 <% end %>
+
+<hr>
+
+<h2>Results</h2>
+
+<span><%= @queried_flights.length%> <%= "flight".pluralize(@queried_flights.length) %> matches your query</span>
+
+<h3>Available flights</h3>
+<ul>
+    <% @queried_flights.each do |flight| %>
+    <li><%="Flight number: #{flight.id}" %></li>
+    <% end %>
+</ul>

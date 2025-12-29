@@ -17,3 +17,7 @@ airports = Airport.all
 50.times do
   Flight.create! departure_airport: airports.sample, arrival_airport: airports.sample, duration: rand(3000..9000), start_datetime: rand(1..200).hours.after, number_of_passengers: rand(1..4)
 end
+
+6.times do
+  Flight.create! departure_airport: airports.first, arrival_airport: airports.last, duration: rand(3000..9000), start_datetime: rand(1..200).hours.after, number_of_passengers: rand(1..4)
+end

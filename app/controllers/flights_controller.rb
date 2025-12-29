@@ -6,5 +6,6 @@ class FlightsController < ApplicationController
     @departure_dates = Flight.all.map { |flight| [ flight.start_datetime.to_date, flight.start_datetime ] }
 
     @queried_flights = Flight.where("departure_airport_id = :dai AND arrival_airport_id = :aai AND number_of_passengers = :nop AND start_datetime >= :sd", dai: params[:departure_airport], aai: params[:arrival_airport], nop: params[:number_of_passengers], sd: params[:start_datetime])
+    # @preferred_flights = @queried_flights.map { |flight| [ flight.id, " Flight number #{flight.id}", flight.number_of_passengers ] }
   end
 end

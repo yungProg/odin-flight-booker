@@ -29,8 +29,11 @@
 <span><%= @queried_flights.length%> <%= "flight".pluralize(@queried_flights.length) %> matches your query</span>
 
 <h3>Available flights</h3>
-<ul>
+<%= form_with url: new_booking_path, method: :get do |f|%>
     <% @queried_flights.each do |flight| %>
-    <li><%="Flight number: #{flight.id}" %></li>
-    <% end %>
-</ul>
+    <%= f.hidden_field :number_of_passengers, value: flight.number_of_passengers%>
+    <%= f.radio_button :flight_id, flight.id%>
+    <%= f.label "flight_id_#{flight.id}", "Flight number #{flight.id}" %>
+    <%end%>
+    <%= f.submit "Next"%>
+<%end%>

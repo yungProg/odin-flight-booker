@@ -1,0 +1,29 @@
+<h1><%= render "shared/header"%></h1>
+<% n = 0%>
+
+<%= form_with model: @booking do |f| %>
+<%= f.label :departure_date%>
+<%= f.datetime_local_field :departure_date, value: @flight.start_datetime %><br>
+
+<%= f.label :departure_airport %>
+<%= f.select :departure_airport, [@flight.departure_airport.airport_code] %><br>
+
+<%= f.label :arrival_airport %>
+<%= f.select :arrival_airport, [@flight.arrival_airport.airport_code] %><br>
+
+<p>Flight number <%= @flight.id%></p>
+<%= f.hidden_field :flight_id, value: @flight.id%><br>
+<h2>Passengers Details</h2>
+<%= f.fields_for :passengers do |sub_form| %>
+<h1>Passenger <%=n+=1%></h1>
+<div>
+    <%= sub_form.hidden_field :flight_id, value: @flight.id%>
+    <%= sub_form.label :name%>
+    <%= sub_form.text_field :name%><br>
+    <%= sub_form.label :email%>
+    <%= sub_form.email_field :email %><br>
+</div>
+<%end%>
+<%= f.submit "Book flight" %>
+<%end%>
+

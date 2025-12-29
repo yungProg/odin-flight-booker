@@ -10,13 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_24_122959) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_27_233727) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "airports", force: :cascade do |t|
     t.string "airport_code"
     t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bookings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "flight_id"
     t.datetime "updated_at", null: false
   end
 
@@ -27,6 +33,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_24_122959) do
     t.integer "duration"
     t.integer "number_of_passengers"
     t.datetime "start_datetime"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "passengers", force: :cascade do |t|
+    t.integer "booking_id"
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.integer "flight_id"
+    t.string "name"
     t.datetime "updated_at", null: false
   end
 end

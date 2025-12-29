@@ -1,0 +1,22 @@
+<h1><%= render "shared/header"%></h1>
+
+<h2>Booking Information</h2>
+<h3>Flight Info</h3>
+<ul>
+    <li>Flight number: <%= @flight.id %></li>
+    <li>Departure airport: <%= @flight.departure_airport.airport_code %></li>
+    <li>Arrival airport: <%= @flight.arrival_airport.airport_code %></li>
+    <li>Date of departure: <%= (@flight.start_datetime.strftime("%A, %-d %b, %Y")) %></li>
+    <li>Time of departure: <%= @flight.start_datetime.strftime("%l:%M %p") %></li>
+    <li>ETA: <%= (@flight.start_datetime+ @flight.duration).strftime("%A, %-d %b, %Y %l:%M %p") %></li>
+    <li>Number of passengers booked: <%= @flight.number_of_passengers %></li>
+</ul>
+
+<h3>Passenger Info</h3>
+<% @passengers.each_with_index do |passenger, index| %>
+    <p>Passenger <%= index + 1%></p>
+    <ul>
+        <li>Passenger's name: <%= passenger.name %></li>
+        <li>Passenger's email: <%= passenger.email %></li>
+    </ul>
+<%end%>

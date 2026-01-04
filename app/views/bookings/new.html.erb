@@ -16,14 +16,31 @@
 <h2>Passengers Details</h2>
 <%= f.fields_for :passengers do |sub_form| %>
 <h1>Passenger <%=n+=1%></h1>
-<div>
-    <%= sub_form.hidden_field :flight_id, value: @flight.id%>
-    <%= sub_form.label :name%>
-    <%= sub_form.text_field :name%><br>
-    <%= sub_form.label :email%>
-    <%= sub_form.email_field :email %><br>
+<div data-controller="passenger" >
+    <div data-passenger-target="form" >
+        <div>
+            <%= sub_form.hidden_field :flight_id, value: @flight.id%>
+            <%= sub_form.label :name%>
+            <%= sub_form.text_field :name%><br>
+            <%= sub_form.label :email%>
+            <%= sub_form.email_field :email %><br>
+        </div>
+        <template id="passenger-temp">
+            <div>
+                <%= sub_form.hidden_field :flight_id, value: @flight.id%>
+                <%= sub_form.label :name%>
+                <%= sub_form.text_field :name%><br>
+                <%= sub_form.label :email%>
+                <%= sub_form.email_field :email %><br>
+            </div>
+        </template>
+    </div>
+    <div>
+        <button data-action="passenger#add" >Add Passenger</button>
+        <button data-action="passenger#remove" >Remove Passenger</button>
+    </div>
 </div>
 <%end%>
+
 <%= f.submit "Book flight" %>
 <%end%>
-

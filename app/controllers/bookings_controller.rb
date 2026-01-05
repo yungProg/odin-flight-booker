@@ -15,15 +15,19 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
 
+    respond_to do |format|
+      if @booking.save
+      PassengerMailer.with(booking: @booking).confirmation_email.deliver_later
 
-    if @booking.save
-      redirect_to @booking
-    else
-      @number_of_passengers = params[:number_of_passengers].to_i
-      @flight = Flight.find(@booking.flight_id)
-      render :new
-      # puts "+++++++++++++++++++++++"
-      # puts @booking.flight_id
+      format.html { redirect_to @booking, notice: "Flight successfully booked" }
+      format.json { render @booking, status: created, location: @booking }
+
+      else
+        @number_of_passengers = params[:number_of_passengers].to_i
+        @flight = Flight.find(@booking.flight_id)
+        format.html { render :new }
+        format.json { render json: @booking.errors, status: :unprocessable_entity }
+      end
     end
   end
 
